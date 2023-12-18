@@ -758,7 +758,7 @@ local dir = "Anime_Adventures/"..game.Players.LocalPlayer.Name
 local Uilib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ArponAG/Scripts/main/finitylibTEST"))()
 --local Uilib = loadstring(game:HttpGet("https://raw.githubusercontent.com/ArponAG/Scripts/main/finitylib"))()
 local exec = tostring(identifyexecutor())
-local Window = Uilib.new(true, "[Arpon_V2] Anime Adventures "..version.." - "..exec)
+local Window = Uilib.new(true, "[BETA] Jung Hub "..version.." - "..exec)
 Window.ChangeToggleKey(Enum.KeyCode.P)
 
 local Home = Window:Category("🏠 Home")
