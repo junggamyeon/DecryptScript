@@ -3992,9 +3992,9 @@ function autoload()
     pcall(function()
         local exec = tostring(identifyexecutor())
         if exec == "Synapse X" and Settings.AutoLoadScript then
-            syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures_v2__Beta.lua'))()")
+            syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/ArponV2_AA.lua'))()")
         elseif exec ~= "Synapse X" and Settings.AutoLoadScript then
-            queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures_v2__Beta.lua'))()")
+            queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/ArponV2_AA.lua'))()")
         end
     end)
 end
@@ -4006,14 +4006,14 @@ end
 if Settings.AutoLoadScript == true then
     local exec = tostring(identifyexecutor())
     if exec == "Synapse X" then
-        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures_v2__Beta.lua'))()")
+        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/ArponV2_AA.lua'))()")
     else
-        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures_v2__Beta.lua'))()")
+        queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/ArponV2_AA.lua'))()")
     end
 end
 
 function autoload2()
-    loadstring(game:HttpGet('https://raw.githubusercontent.com/ArponAG/Scripts/main/AnimeAdventures_v2__Beta.lua'))()
+    loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/ArponV2_AA.lua'))()
 end
 
 if Settings.refarmc then
