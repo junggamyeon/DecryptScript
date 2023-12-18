@@ -768,7 +768,7 @@ local UIUPDT = Home:Sector("⚙️ Challenge Config ⚙️")
 
 
 local Farm = Window:Category("🤖 Auto Farm")
-local Macro = Macro:Setup("🧿 Macro Setup")
+local Macro = Window:Category("🧿 Macro Setup")
 local SelectUnits = Farm:Sector("🧙‍ Select Units")
 local SelectWorld = Farm:Sector("🌏 Select World")
 local UnitPosition = Farm:Sector("🧙 Select Unit Position")
