@@ -4041,14 +4041,14 @@ function others()
     task.spawn(function()
         while task.wait() do
                 if exec == "Synapse X" and Settings.AutoLoadScript2 then
-                    syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/HOLYSHlTz/Script_HSz/main/ArponV2_AA.lua'))()")
+                    syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/Arpon_ALS.lua'))()")
 
                     if exec == "Synapse X" then
-                        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/HOLYSHlTz/Script_HSz/main/ArponV2_AA.lua'))()")
+                        syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/Arpon_ALS.lua'))()")
                     end
 
                 elseif exec ~= "Synapse X" and Settings.AutoLoadScript2 then
-                    queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/HOLYSHlTz/Script_HSz/main/ArponV2_AA.lua'))()")
+                    queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/Arpon_ALS.lua'))()")
                 end
             end
         end)
@@ -5674,9 +5674,9 @@ coroutine.resume(coroutine.create(function()
         if Settings.AutoLoadScript2 then
             local exec = tostring(identifyexecutor())
             if exec == "Synapse X" then
-                syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/HOLYSHlTz/Script_HSz/main/ArponV2_AA.lua'))()")
+                syn.queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/Arpon_ALS.lua'))()")
             else
-                queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/HOLYSHlTz/Script_HSz/main/ArponV2_AA.lua'))()")
+                queue_on_teleport("loadstring(game:HttpGet('https://raw.githubusercontent.com/junggamyeon/DecryptScript/main/Arpon_ALS.lua'))()")
             end
         
         end
