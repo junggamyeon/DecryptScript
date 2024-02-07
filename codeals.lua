@@ -1,6 +1,7 @@
 local codes = {
     "Sub2HotSauceHan",
     "ToadBoi120k",
+    "BUFF",
     "BlamTopSecretCodeWontWorkIfNotSubbed",
     "Sub2Blamspot524k",
     "Sub2CodeNex77k",
