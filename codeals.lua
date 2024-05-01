@@ -1,32 +1,42 @@
 local codes = {
-    "Sub2HotSauceHan",
-    "ToadBoi120k",
-    "Shutdown",
-    "BUFF",
-    "BlamTopSecretCodeWontWorkIfNotSubbed",
-    "Sub2Blamspot524k",
-    "Sub2CodeNex77k",
-    "Sub2KingLuffy",
-    "SorryForDelay",
-    "Sub2BmGTormenter117onYT",
-    "RELEASE",
-    "FinalDelay",
-    "NeelsTV",
-    "YammoRework",
-    "TyFor10kFavREAL",
-    "D1SGUISED",
-    "TyFor1mVisitsPart1",
-    "TyFor1mVisitsPart2",
-    "GoalReached"
+    "Visit150k",
+    "Visit250k",
+    "SorryForTimeChamber",
+    "Sub2Watchpixel",
+    "Sub2Jetoza",
+    "AnimeFantasy",
+    "ShadowMonarch",
+    "Release",
+    "Sub2AekZaJunior",
+    "Tkz",
+    "Likes1500",
 }
 
-local game = game
-local ReplicatedStorage = game:GetService("ReplicatedStorage")
-local remotes = ReplicatedStorage:WaitForChild("Remotes")
-local claimCodeRemote = remotes:WaitForChild("ClaimCode")
+local function inputCode(index)
+    local args = {
+        [1] = codes[index],
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("UseCode"):FireServer(unpack(args))
+end
 
-for _, code in ipairs(codes) do
-    claimCodeRemote:InvokeServer(code)
-    wait(1)
-end 
+local currentIndex = 1
+local interval = 1
 
+local function inputNextCode()
+    if currentIndex <= #codes then
+        inputCode(currentIndex)
+        currentIndex = currentIndex + 1
+        wait(interval)
+        inputNextCode()
+    else
+        
+        wait(3)
+        
+        for i = 1, 10 do
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpecialSummonTenRoll"):FireServer()
+            wait(1)
+        end
+    end
+end
+
+inputNextCode()
