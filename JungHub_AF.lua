@@ -3,7 +3,6 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 
 if game.PlaceId == 16474126979 then
-	repeat task.wait() until game.ReplicatedStorage.packages:FindFirstChild("StarterGui")
 end
 if getgenv().JungHubExecuted then return end
 getgenv().JungHubExecuted = true
