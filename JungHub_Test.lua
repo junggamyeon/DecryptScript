@@ -71,11 +71,11 @@ local unitNames = getUnitNames()
 
 -- UI
 local ScreenGui = Instance.new("ScreenGui")
-ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
+ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")      -- Thu nhỏ kích thước giao diện
+
+local Frame = Window.Container("JungHub-AF")
+Frame.Position = UDim2.new(0, 10, 0.7, 0)  -- Dời giao diện lên trên và lùi vào phía trong một chút
 Frame.Size = UDim2.new(0.2, 0, 0.2, 0)      -- Thu nhỏ kích thước giao diện
-
-
-local Frame = Window.Container("JungHub-AF Test")
 local gameButton = Frame.Button("Game")
 local miscButton = Frame.Button("Misc")
 local settingButton = Frame.Button("Settings")
