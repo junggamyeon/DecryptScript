@@ -20,7 +20,7 @@ game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Ready
 
 for i = 1, 2 do
     createUnit("Sion", CFrame.new(-197.45103454589844, 21.662912368774414, -195.91720581054688, -1, -1.898014487548491e-16, -4.3722536702262005e-09, 1.898014487548491e-16, 1, -1.0307296178000509e-15, -4.3722536702262005e-09, 1.0307296178000509e-15, -1), Vector3.new(0,0,0), "Sion1714621296.434626")
-    wait(3) 
+    wait(5) 
 end
 
 for i = 1, 30 do
