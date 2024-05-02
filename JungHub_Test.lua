@@ -1,3 +1,17 @@
+local Luminosity = loadstring(game:HttpGet("https://raw.githubusercontent.com/iHavoc101/Genesis-Studios/main/UserInterface/Luminosity.lua", true))()
+local Window = Luminosity.new("Game Automation", "v1.0.0", 4370345701)
+
+-- Hàm để lấy danh sách tên của các unit từ dịch vụ ReplicatedStorage
+local function getUnitNames()
+    local unitNames = {}
+    local remotes = game:GetService("ReplicatedStorage"):WaitForChild("Remotes")
+    local createUnitsRemote = remotes:WaitForChild("CreateUnits")
+    for _, child in ipairs(createUnitsRemote:GetChildren()) do
+        table.insert(unitNames, child.Name)
+    end
+    return unitNames
+end
+
 -- Hàm để thực hiện tạo đơn vị
 local function createUnit(unitName, cframe, position, tag)
     local args = {
@@ -17,7 +31,7 @@ local function upgradeUnit(unit)
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):FireServer(unpack(args))
 end
 
--- Hàm để auto nhập code
+-- Hàm để nhập code
 local codes = {
     "Visit150k",
     "Visit250k",
@@ -50,98 +64,191 @@ end
 -- Thực hiện hành động khi vào trận
 game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Ready"):FireServer()
 
--- Hàm để xử lý khi nhấn nút Position
-local function placeUnit(positionIndex)
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot tương ứng vào vị trí đã chọn
-    createUnit("Unit"..positionIndex, CFrame.new(position), position, "Tag"..positionIndex)
-end
+-- Tạo danh sách tên các unit
+local unitNames = getUnitNames()
 
 -- UI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Parent = game.Players.LocalPlayer:WaitForChild("PlayerGui")
 
-local Frame = Instance.new("Frame")
-Frame.Position = UDim2.new(0.5, -150, 0.5, -150)
-Frame.Size = UDim2.new(0, 300, 0, 300)
-Frame.Style = Enum.FrameStyle.RobloxRound
-Frame.Parent = ScreenGui
+local Frame = Window.Container("Game Automation")
+local gameButton = Frame.Button("Game")
+local miscButton = Frame.Button("Misc")
+local settingButton = Frame.Button("Settings")
 
-local gameButton = Instance.new("TextButton")
-gameButton.Text = "Game"
-gameButton.Position = UDim2.new(0, 0, 0, 0)
-gameButton.Size = UDim2.new(0, 100, 0, 50)
-gameButton.Parent = Frame
+local gameFrame = Frame.Page("Game")
+local miscFrame = Frame.Page("Misc")
+local settingFrame = Frame.Page("Settings")
 
-local miscButton = Instance.new("TextButton")
-miscButton.Text = "Misc"
-miscButton.Position = UDim2.new(0, 100, 0, 0)
-miscButton.Size = UDim2.new(0, 100, 0, 50)
-miscButton.Parent = Frame
+local autoPlaceButton = gameFrame.Toggle("Auto Place Units: OFF")
+local autoPlaceVipButton = gameFrame.Toggle("Auto Place Vip: OFF")
+local autoUpgradeButton = gameFrame.Toggle("Auto Upgrade Units: OFF")
+local autoReadyButton = gameFrame.Toggle("Auto Ready: OFF")
+local autoReplayButton = gameFrame.Toggle("Auto Replay: OFF")
 
-local settingButton = Instance.new("TextButton")
-settingButton.Text = "Settings"
-settingButton.Position = UDim2.new(0, 200, 0, 0)
-settingButton.Size = UDim2.new(0, 100, 0, 50)
-settingButton.Parent = Frame
+local autoInputCodeButton = miscFrame.Toggle("Auto Input Code: OFF")
+local autoSummonButton = miscFrame.Toggle("Auto Summon: OFF")
 
-local gameFrame = Instance.new("Frame")
-gameFrame.Position = UDim2.new(0, 0, 0, 50)
-gameFrame.Size = UDim2.new(0, 300, 0, 250)
-gameFrame.Visible = false
-gameFrame.Parent = Frame
-
-local autoPlaceButton = Instance.new("TextButton")
-autoPlaceButton.Text = "Auto Place Units: OFF"
-autoPlaceButton.Position = UDim2.new(0, 0, 0, 0)
-autoPlaceButton.Size = UDim2.new(0, 300, 0, 50)
-autoPlaceButton.Parent = gameFrame
-
-local autoPlaceVipButton = Instance.new("TextButton")
-autoPlaceVipButton.Text = "Auto Place Vip: OFF"
-autoPlaceVipButton.Position = UDim2.new(0, 0, 0, 50)
-autoPlaceVipButton.Size = UDim2.new(0, 300, 0, 50)
-autoPlaceVipButton.Parent = gameFrame
-
-local settingFrame = Instance.new("Frame")
-settingFrame.Position = UDim2.new(0, 0, 0, 50)
-settingFrame.Size = UDim2.new(0, 300, 0, 250)
-settingFrame.Visible = false
-settingFrame.Parent = Frame
-
-local positionButtons = {}
-
-for i = 1, 6 do
-    local positionButton = Instance.new("TextButton")
-    positionButton.Text = "Position " .. i
-    positionButton.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
-    positionButton.Size = UDim2.new(0, 100, 0, 40)
-    positionButton.Parent = settingFrame
-    
-    positionButton.MouseButton1Click:Connect(function()
-        placeUnit(i)
-    end)
-    
-    table.insert(positionButtons, positionButton)
-end
+local position1Button = settingFrame.Button("Position 1")
+local position2Button = settingFrame.Button("Position 2")
+local position3Button = settingFrame.Button("Position 3")
+local position4Button = settingFrame.Button("Position 4")
+local position5Button = settingFrame.Button("Position 5")
+local position6Button = settingFrame.Button("Position 6")
 
 -- Kết nối các nút với hàm xử lý tương ứng
-autoPlaceButton.MouseButton1Click:Connect(toggleAutoPlace)
-autoPlaceVipButton.MouseButton1Click:Connect(toggleAutoPlaceVip)
+position1Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 1 vào vị trí đã chọn
+    createUnit(unitNames[1], CFrame.new(position), position, "Tag1")
+end)
+
+position2Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 2 vào vị trí đã chọn
+    createUnit(unitNames[2], CFrame.new(position), position, "Tag2")
+end)
+
+position3Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 3 vào vị trí đã chọn
+    createUnit(unitNames[3], CFrame.new(position), position, "Tag3")
+end)
+
+position4Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 4 vào vị trí đã chọn
+    createUnit(unitNames[4], CFrame.new(position), position, "Tag4")
+end)
+
+position5Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 5 vào vị trí đã chọn
+    createUnit(unitNames[5], CFrame.new(position), position, "Tag5")
+end)
+
+position6Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 6 vào vị trí đã chọn
+    createUnit(unitNames[6], CFrame.new(position), position, "Tag6")
+end)
+
+-- Kết nối các nút auto với hàm xử lý tương ứng
+autoUpgradeButton.Callback = function(status)
+    if autoUpgradeButton.Text == "Auto Upgrade Units: OFF" then
+        autoUpgradeButton.Text = "Auto Upgrade Units: ON"
+        -- Bật chức năng auto upgrade
+        autoUpgradeButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Đổi màu nút khi bật
+        while autoUpgradeButton.Text == "Auto Upgrade Units: ON" do
+            -- Tự động nâng cấp đơn vị
+            upgradeUnit(unitNames[1]) -- Thay "unitName" bằng tên đơn vị muốn nâng cấp
+            wait(1) -- Chờ 1 giây trước khi nâng cấp đơn vị tiếp theo
+        end
+    else
+        autoUpgradeButton.Text = "Auto Upgrade Units: OFF"
+        -- Tắt chức năng auto upgrade
+        autoUpgradeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Đổi màu nút khi tắt
+    end
+end
+
+autoReadyButton.Callback = function(status)
+    if autoReadyButton.Text == "Auto Ready: OFF" then
+        autoReadyButton.Text = "Auto Ready: ON"
+        -- Bật chức năng auto ready
+        autoReadyButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Đổi màu nút khi bật
+        while autoReadyButton.Text == "Auto Ready: ON" do
+            -- Tự động ready khi vào trận
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Ready"):FireServer()
+            wait(1) -- Chờ 1 giây trước khi ready lần tiếp theo
+        end
+    else
+        autoReadyButton.Text = "Auto Ready: OFF"
+        -- Tắt chức năng auto ready
+        autoReadyButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Đổi màu nút khi tắt
+    end
+end
+
+autoReplayButton.Callback = function(status)
+    if autoReplayButton.Text == "Auto Replay: OFF" then
+        autoReplayButton.Text = "Auto Replay: ON"
+        -- Bật chức năng auto replay
+        autoReplayButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Đổi màu nút khi bật
+        while autoReplayButton.Text == "Auto Replay: ON" do
+            -- Tự động replay khi kết thúc trận đấu
+            game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Replay"):FireServer()
+            wait(1) -- Chờ 1 giây trước khi replay lần tiếp theo
+        end
+    else
+        autoReplayButton.Text = "Auto Replay: OFF"
+        -- Tắt chức năng auto replay
+        autoReplayButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Đổi màu nút khi tắt
+    end
+end
+
+autoInputCodeButton.Callback = function(status)
+    if autoInputCodeButton.Text == "Auto Input Code: OFF" then
+        autoInputCodeButton.Text = "Auto Input Code: ON"
+        -- Bật chức năng auto input code
+        autoInputCodeButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Đổi màu nút khi bật
+        while autoInputCodeButton.Text == "Auto Input Code: ON" do
+            -- Tự động nhập code
+            for index, code in ipairs(codes) do
+                inputCode(index)
+                wait(1) -- Chờ 1 giây trước khi nhập code tiếp theo
+            end
+        end
+    else
+        autoInputCodeButton.Text = "Auto Input Code: OFF"
+        -- Tắt chức năng auto input code
+        autoInputCodeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Đổi màu nút khi tắt
+    end
+end
+
+autoSummonButton.Callback = function(status)
+    if autoSummonButton.Text == "Auto Summon: OFF" then
+        autoSummonButton.Text = "Auto Summon: ON"
+        -- Bật chức năng auto summon
+        autoSummonButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Đổi màu nút khi bật
+        while autoSummonButton.Text == "Auto Summon: ON" do
+            -- Tự động triệu hồi đơn vị
+            autoSummon()
+            wait(1) -- Chờ 1 giây trước khi triệu hồi tiếp theo
+        end
+    else
+        autoSummonButton.Text = "Auto Summon: OFF"
+        -- Tắt chức năng auto summon
+        autoSummonButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Đổi màu nút khi tắt
+    end
+end
+
 gameButton.MouseButton1Click:Connect(function()
-    gameFrame.Visible = true
-    miscFrame.Visible = false
-    settingFrame.Visible = false
+    gameFrame:Show()
+    miscFrame:Hide()
+    settingFrame:Hide()
 end)
+
 miscButton.MouseButton1Click:Connect(function()
-    gameFrame.Visible = false
-    miscFrame.Visible = true
-    settingFrame.Visible = false
+    gameFrame:Hide()
+    miscFrame:Show()
+    settingFrame:Hide()
 end)
+
 settingButton.MouseButton1Click:Connect(function()
-    gameFrame.Visible = false
-    miscFrame.Visible = false
-    settingFrame.Visible = true
+    gameFrame:Hide()
+    miscFrame:Hide()
+    settingFrame:Show()
 end)
+
+-- Đã thêm các chức năng vào giao diện và kết nối nút với hàm xử lý tương ứng
