@@ -12,6 +12,8 @@ local function getUnitNames()
     return unitNames
 end
 
+local isUIVisible = true
+
 -- Hàm để thực hiện tạo đơn vị
 local function createUnit(unitName, cframe, position, tag)
     local args = {
@@ -78,6 +80,15 @@ local gameButton = Frame.Button("Game")
 local miscButton = Frame.Button("Misc")
 local settingButton = Frame.Button("Settings")
 
+local toggleUIIcon = Instance.new("ImageButton")
+toggleUIIcon.Name = "ToggleUIIcon"
+toggleUIIcon.Parent = ScreenGui
+toggleUIIcon.Position = UDim2.new(0.5, -15, 0.1, 0)  -- Vị trí của icon
+toggleUIIcon.Size = UDim2.new(0, 30, 0, 30)          -- Kích thước của icon
+toggleUIIcon.Image = "http://www.roblox.com/asset/?id=7161646433"  -- Icon màu đen có chữ J màu trắng
+toggleUIIcon.BackgroundTransparency = 1
+toggleUIIcon.Visible = true
+
 local gameFrame = Frame.Page("Game")
 local miscFrame = Frame.Page("Misc")
 local settingFrame = Frame.Page("Settings")
@@ -98,6 +109,15 @@ local position4Button = settingFrame.Button("Position 4")
 local position5Button = settingFrame.Button("Position 5")
 local position6Button = settingFrame.Button("Position 6")
 
+toggleUIIcon.MouseButton1Click:Connect(function()
+    if isUIVisible then
+        Frame.Visible = false
+        isUIVisible = false
+    else
+        Frame.Visible = true
+        isUIVisible = true
+    end
+end)
 -- Kết nối các nút với hàm xử lý tương ứng
 position1Button.MouseButton1Click:Connect(function()
     -- Thực hiện lấy tọa độ địa điểm nhấn chuột
