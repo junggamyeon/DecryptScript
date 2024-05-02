@@ -39,6 +39,6 @@ local function replay()
     game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Replay"):FireServer()
 end
 
-wait(300)
+wait(10)
 replay()
 -- Auto Logger cái lồn mẹ mày dùng thì dùng đéo dùng thì cút men mày đi
