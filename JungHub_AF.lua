@@ -3,7 +3,7 @@ if not game:IsLoaded() then game.Loaded:Wait() end
 repeat task.wait() until game.Workspace:FindFirstChild(game.Players.LocalPlayer.Name)
 
 if game.PlaceId == 16474126979 then
-	repeat task.wait() until game.Players.LocalPlayer.PlayerGui:FindFirstChild("collection"):FindFirstChild("grid"):FindFirstChild("List"):FindFirstChild("Outer"):FindFirstChild("UnitFrames")
+	
 	repeat task.wait() until game.ReplicatedStorage.packages:FindFirstChild("assets")
 	repeat task.wait() until game.ReplicatedStorage.packages:FindFirstChild("StarterGui")
 end
