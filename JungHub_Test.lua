@@ -1,4 +1,23 @@
--- Hàm để nhập code
+-- Hàm để thực hiện tạo đơn vị
+local function createUnit(unitName, cframe, position, tag)
+    local args = {
+        [1] = unitName,
+        [2] = cframe,
+        [3] = position,
+        [4] = tag
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("CreateUnits"):FireServer(unpack(args))
+end
+
+-- Hàm để thực hiện nâng cấp
+local function upgradeUnit(unit)
+    local args = {
+        [1] = unit
+    }
+    game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Upgrades"):FireServer(unpack(args))
+end
+
+-- Hàm để auto nhập code
 local codes = {
     "Visit150k",
     "Visit250k",
@@ -26,6 +45,18 @@ local function autoSummon()
         game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("SpecialSummonTenRoll"):FireServer()
         wait(1)
     end
+end
+
+-- Thực hiện hành động khi vào trận
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Ready"):FireServer()
+
+-- Hàm để xử lý khi nhấn nút Position
+local function placeUnit(positionIndex)
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot tương ứng vào vị trí đã chọn
+    createUnit("Unit"..positionIndex, CFrame.new(position), position, "Tag"..positionIndex)
 end
 
 -- UI
@@ -63,7 +94,7 @@ gameFrame.Visible = false
 gameFrame.Parent = Frame
 
 local autoPlaceButton = Instance.new("TextButton")
-autoPlaceButton.Text = "Auto Place: OFF"
+autoPlaceButton.Text = "Auto Place Units: OFF"
 autoPlaceButton.Position = UDim2.new(0, 0, 0, 0)
 autoPlaceButton.Size = UDim2.new(0, 300, 0, 50)
 autoPlaceButton.Parent = gameFrame
@@ -74,85 +105,31 @@ autoPlaceVipButton.Position = UDim2.new(0, 0, 0, 50)
 autoPlaceVipButton.Size = UDim2.new(0, 300, 0, 50)
 autoPlaceVipButton.Parent = gameFrame
 
-local autoReadyButton = Instance.new("TextButton")
-autoReadyButton.Text = "Auto Ready: OFF"
-autoReadyButton.Position = UDim2.new(0, 0, 0, 100)
-autoReadyButton.Size = UDim2.new(0, 300, 0, 50)
-autoReadyButton.Parent = gameFrame
-
-local autoReplayButton = Instance.new("TextButton")
-autoReplayButton.Text = "Auto Replay: OFF"
-autoReplayButton.Position = UDim2.new(0, 0, 0, 150)
-autoReplayButton.Size = UDim2.new(0, 300, 0, 50)
-autoReplayButton.Parent = gameFrame
-
-local miscFrame = Instance.new("Frame")
-miscFrame.Position = UDim2.new(0, 0, 0, 50)
-miscFrame.Size = UDim2.new(0, 300, 0, 250)
-miscFrame.Visible = false
-miscFrame.Parent = Frame
-
-local autoInputCodeButton = Instance.new("TextButton")
-autoInputCodeButton.Text = "Auto Input Code: OFF"
-autoInputCodeButton.Position = UDim2.new(0, 0, 0, 0)
-autoInputCodeButton.Size = UDim2.new(0, 300, 0, 50)
-autoInputCodeButton.Parent = miscFrame
-
-local autoSummonButton = Instance.new("TextButton")
-autoSummonButton.Text = "Auto Summon: OFF"
-autoSummonButton.Position = UDim2.new(0, 0, 0, 50)
-autoSummonButton.Size = UDim2.new(0, 300, 0, 50)
-autoSummonButton.Parent = miscFrame
-
 local settingFrame = Instance.new("Frame")
 settingFrame.Position = UDim2.new(0, 0, 0, 50)
 settingFrame.Size = UDim2.new(0, 300, 0, 250)
 settingFrame.Visible = false
 settingFrame.Parent = Frame
 
-local position1Button = Instance.new("TextButton")
-position1Button.Text = "Position 1"
-position1Button.Position = UDim2.new(0, 0, 0, 0)
-position1Button.Size = UDim2.new(0, 100, 0, 50)
-position1Button.Parent = settingFrame
+local positionButtons = {}
 
-local position2Button = Instance.new("TextButton")
-position2Button.Text = "Position 2"
-position2Button.Position = UDim2.new(0, 100, 0, 0)
-position2Button.Size = UDim2.new(0, 100, 0, 50)
-position2Button.Parent = settingFrame
-
-local position3Button = Instance.new("TextButton")
-position3Button.Text = "Position 3"
-position3Button.Position = UDim2.new(0, 200, 0, 0)
-position3Button.Size = UDim2.new(0, 100, 0, 50)
-position3Button.Parent = settingFrame
-
-local position4Button = Instance.new("TextButton")
-position4Button.Text = "Position 4"
-position4Button.Position = UDim2.new(0, 0, 0, 50)
-position4Button.Size = UDim2.new(0, 100, 0, 50)
-position4Button.Parent = settingFrame
-
-local position5Button = Instance.new("TextButton")
-position5Button.Text = "Position 5"
-position5Button.Position = UDim2.new(0, 100, 0, 50)
-position5Button.Size = UDim2.new(0, 100, 0, 50)
-position5Button.Parent = settingFrame
-
-local position6Button = Instance.new("TextButton")
-position6Button.Text = "Position 6"
-position6Button.Position = UDim2.new(0, 200, 0, 50)
-position6Button.Size = UDim2.new(0, 100, 0, 50)
-position6Button.Parent = settingFrame
+for i = 1, 6 do
+    local positionButton = Instance.new("TextButton")
+    positionButton.Text = "Position " .. i
+    positionButton.Position = UDim2.new(0, 0, 0, (i - 1) * 40)
+    positionButton.Size = UDim2.new(0, 100, 0, 40)
+    positionButton.Parent = settingFrame
+    
+    positionButton.MouseButton1Click:Connect(function()
+        placeUnit(i)
+    end)
+    
+    table.insert(positionButtons, positionButton)
+end
 
 -- Kết nối các nút với hàm xử lý tương ứng
 autoPlaceButton.MouseButton1Click:Connect(toggleAutoPlace)
 autoPlaceVipButton.MouseButton1Click:Connect(toggleAutoPlaceVip)
-autoReadyButton.MouseButton1Click:Connect(toggleAutoReady)
-autoReplayButton.MouseButton1Click:Connect(toggleAutoReplay)
-autoInputCodeButton.MouseButton1Click:Connect(toggleAutoInputCode)
-autoSummonButton.MouseButton1Click:Connect(toggleAutoSummon)
 gameButton.MouseButton1Click:Connect(function()
     gameFrame.Visible = true
     miscFrame.Visible = false
@@ -168,38 +145,3 @@ settingButton.MouseButton1Click:Connect(function()
     miscFrame.Visible = false
     settingFrame.Visible = true
 end)
-
--- Hàm để xử lý khi nhấn nút Position 1-6
-local function setPosition(slot)
-    positionButtons = {position1Button, position2Button, position3Button, position4Button, position5Button, position6Button}
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot tương ứng vào vị trí đã chọn
-    createUnit("Unit"..slot, CFrame.new(position), position, "Tag"..slot)
-end
-
-position1Button.MouseButton1Click:Connect(function()
-    setPosition(1)
-end)
-
-position2Button.MouseButton1Click:Connect(function()
-    setPosition(2)
-end)
-
-position3Button.MouseButton1Click:Connect(function()
-    setPosition(3)
-end)
-
-position4Button.MouseButton1Click:Connect(function()
-    setPosition(4)
-end)
-
-position5Button.MouseButton1Click:Connect(function()
-    setPosition(5)
-end)
-
-position6Button.MouseButton1Click:Connect(function()
-    setPosition(6)
-end)
-
