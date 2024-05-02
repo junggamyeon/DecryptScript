@@ -113,75 +113,34 @@ toggleUIIcon.MouseButton1Click:Connect(function()
     if isUIVisible then
         Frame.Visible = false
         isUIVisible = false
+        toggleUIIcon.Image = "http://www.roblox.com/asset/?id=7161646433"
     else
         Frame.Visible = true
         isUIVisible = true
+        toggleUIIcon.Image = "http://www.roblox.com/asset/?id=7161646434"
     end
-end)
--- Kết nối các nút với hàm xử lý tương ứng
-position1Button.MouseButton1Click:Connect(function()
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot 1 vào vị trí đã chọn
-    createUnit(unitNames[1], CFrame.new(position), position, "Tag1")
-end)
-
-position2Button.MouseButton1Click:Connect(function()
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot 2 vào vị trí đã chọn
-    createUnit(unitNames[2], CFrame.new(position), position, "Tag2")
-end)
-
-position3Button.MouseButton1Click:Connect(function()
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot 3 vào vị trí đã chọn
-    createUnit(unitNames[3], CFrame.new(position), position, "Tag3")
-end)
-
-position4Button.MouseButton1Click:Connect(function()
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot 4 vào vị trí đã chọn
-    createUnit(unitNames[4], CFrame.new(position), position, "Tag4")
-end)
-
-position5Button.MouseButton1Click:Connect(function()
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot 5 vào vị trí đã chọn
-    createUnit(unitNames[5], CFrame.new(position), position, "Tag5")
-end)
-
-position6Button.MouseButton1Click:Connect(function()
-    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
-    local mouse = game.Players.LocalPlayer:GetMouse()
-    local position = mouse.Hit.p
-    -- Đặt unit ở slot 6 vào vị trí đã chọn
-    createUnit(unitNames[6], CFrame.new(position), position, "Tag6")
 end)
 
 -- Kết nối các nút auto với hàm xử lý tương ứng
+autoPlaceButton.Callback = function(status)
+    -- Thêm mã xử lý cho chức năng này
+end
+
+autoPlaceVipButton.Callback = function(status)
+    -- Thêm mã xử lý cho chức năng này
+end
+
 autoUpgradeButton.Callback = function(status)
     if autoUpgradeButton.Text == "Auto Upgrade Units: OFF" then
         autoUpgradeButton.Text = "Auto Upgrade Units: ON"
-        -- Bật chức năng auto upgrade
-        autoUpgradeButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) -- Đổi màu nút khi bật
+        autoUpgradeButton.BackgroundColor3 = Color3.fromRGB(0, 255, 0) 
         while autoUpgradeButton.Text == "Auto Upgrade Units: ON" do
-            -- Tự động nâng cấp đơn vị
-            upgradeUnit(unitNames[1]) -- Thay "unitName" bằng tên đơn vị muốn nâng cấp
-            wait(1) -- Chờ 1 giây trước khi nâng cấp đơn vị tiếp theo
+            upgradeUnit(unitNames[1])
+            wait(1)
         end
     else
         autoUpgradeButton.Text = "Auto Upgrade Units: OFF"
-        -- Tắt chức năng auto upgrade
-        autoUpgradeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0) -- Đổi màu nút khi tắt
+        autoUpgradeButton.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
     end
 end
 
@@ -273,4 +232,51 @@ settingButton.MouseButton1Click:Connect(function()
     settingFrame:Show()
 end)
 
--- Đã thêm các chức năng vào giao diện và kết nối nút với hàm xử lý tương ứng
+-- Hãy kết hợp 2 đoạn mã dưới đây
+position1Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 1 vào vị trí đã chọn
+    createUnit(unitNames[1], CFrame.new(position), position, "Tag1")
+end)
+
+position2Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 2 vào vị trí đã chọn
+    createUnit(unitNames[2], CFrame.new(position), position, "Tag2")
+end)
+
+position3Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 3 vào vị trí đã chọn
+    createUnit(unitNames[3], CFrame.new(position), position, "Tag3")
+end)
+
+position4Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 4 vào vị trí đã chọn
+    createUnit(unitNames[4], CFrame.new(position), position, "Tag4")
+end)
+
+position5Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 5 vào vị trí đã chọn
+    createUnit(unitNames[5], CFrame.new(position), position, "Tag5")
+end)
+
+position6Button.MouseButton1Click:Connect(function()
+    -- Thực hiện lấy tọa độ địa điểm nhấn chuột
+    local mouse = game.Players.LocalPlayer:GetMouse()
+    local position = mouse.Hit.p
+    -- Đặt unit ở slot 6 vào vị trí đã chọn
+    createUnit(unitNames[6], CFrame.new(position), position, "Tag6")
+end)
