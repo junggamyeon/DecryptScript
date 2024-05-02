@@ -1,15 +1,9 @@
 local codes = {
-    "Visit150k",
-    "Visit250k",
-    "SorryForTimeChamber",
-    "Sub2Watchpixel",
-    "Sub2Jetoza",
-    "AnimeFantasy",
+    "Visit500k",
     "ShadowMonarch",
     "Release",
     "Sub2AekZaJunior",
-    "Tkz",
-    "Likes1500",
+    "Likes2500",
 }
 
 local function inputCode(index)
