@@ -1,5 +1,5 @@
 local Luminosity = loadstring(game:HttpGet("https://raw.githubusercontent.com/iHavoc101/Genesis-Studios/main/UserInterface/Luminosity.lua", true))()
-local Window = Luminosity.new("Game Automation", "v1.0.0", 4370345701)
+local Window = Luminosity.new("JungHub-AF Test", "v1.0.0", 4370345701)
 
 -- Hàm để lấy danh sách tên của các unit từ dịch vụ ReplicatedStorage
 local function getUnitNames()
